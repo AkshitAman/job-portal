@@ -8,7 +8,7 @@ import {
   getMyJobs,
   updateJob,
   deleteJob,
-} from "../controllers/job.controller.js";
+} from "../controllers/jobController.js";
 
 
 const router = express.Router()
@@ -19,9 +19,9 @@ router.get("/:id",getJobById)
 
 // protected Routes
 
-router.post('/', protectRoute, isRecruiter, createJob);
-router.get('/myjobs', protectRoute, isRecruiter, getMyJobs);
-router.put('/:id', protectRoute, isRecruiter, updateJob);
-router.delete('/:id', protectRoute, isRecruiter, deleteJob);
+router.post('/', protect, isRecruiter, createJob);
+router.get('/myjobs', protect, isRecruiter, getMyJobs);
+router.put('/:id', protect, isRecruiter, updateJob);
+router.delete('/:id', protect, isRecruiter, deleteJob);
 
 export default router
