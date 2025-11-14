@@ -23,5 +23,5 @@ const applicationSchema = new mongoose.Schema(
   }
 );
 
-const Appilication = mongoose.model("Application", applicationSchema);
-export default Appilication;
+const Application = mongoose.model("Application", applicationSchema);
+export default Application;
