@@ -70,7 +70,7 @@ const getApplicationsForJob = async (req, res) => {
 };
 const updateApplicationStatus = async (req, res) => {
   try {
-    const { status } = req.body; // Recruiter sends the statuses
+    const { status } = req.body; // Recruiters sends the statuses
     const recruiterId = req.user.id;
     const { appId } = req.params;
     if (!["pending", "reviewed", "rejected"].includes(status)) {
