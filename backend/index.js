@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors"; // security purpose
 import mongoose from "mongoose";
+import applicationRoutes from "./routes/applicationRoute.js"
 
 import authRoutes from "./routes/authRoute.js";
 import jobRoutes from "./routes/jobRoute.js";
@@ -30,6 +31,7 @@ app.use(cors(corsOptions));
 app.use("/api/auth", authRoutes);
 
 app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes);
 app.get('/', (req, res) => {
   return res
     .status(200)
