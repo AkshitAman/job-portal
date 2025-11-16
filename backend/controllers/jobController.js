@@ -104,9 +104,24 @@
         .json({ message: "Error deleting job", error: error.message });
     }
   };
+
+
+  const searchJobs = async (req, res) => {
+    try {
+       const { keyword } = req.query;
+           const jobs = await Job.find({
+      $or: [
+        { title: { $regex: keyword, $options: "i" } },
+        { companyName: { $regex: keyword, $options: "i" } },
+        { description: { $regex: keyword, $options: "i" } }
+      ]
+    });
+
+    return res.status(200).json(jobs);
+    } catch (error) {
+       return res.status(500).json({ message: "Server error" });
+    }
+  }
   export { getallJobs, getJobById, createJob, getMyJobs, updateJob, deleteJob };
 
-  export async function getAlljobs(req,res){
-    const jobs=await Job.find({});
-
-  }
+  
