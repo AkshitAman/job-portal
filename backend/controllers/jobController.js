@@ -167,4 +167,43 @@ const saveJob = async (req, res) => {
       .json({ message: "Server error", error: error.message });
   }
 };
-export { getallJobs, getJobById, createJob, getMyJobs, updateJob, deleteJob, filterJobs,searchJobs,saveJob };
+const unsaveJob = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const jobId = req.params.id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.savedJobs = user.savedJobs.filter((id) => id.toString() !== jobId);
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Job unsaved successfully", savedJobs: user.savedJobs });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
+  }
+};
+const getSavedJobs = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    
+    const user = await User.findById(userId).populate('savedJobs');
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user.savedJobs);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Server error", error: error.message });
+  }
+};
+export { getallJobs, getJobById, createJob, getMyJobs, updateJob, deleteJob, filterJobs,searchJobs,saveJob,unsaveJob,getSavedJobs };
