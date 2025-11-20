@@ -1,0 +1,39 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import api from "../lib/axios";
+
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+    useEffect(() => {
+    const checkUser = async () => {
+      try {
+        // Check localStorage for persisted user data
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      } catch (error) {
+        console.error("Auth check failed", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkUser();
+  }, []);
+
+  const login = async (email, password) => {
+    const res = await api.post("/auth/login", { email, password });
+    setUser(res.data.user);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+    return res.data;
+  };
+
+    const register = async (name, email, password, role) => {
+    const res = await api.post("/auth/register", { name, email, password, role });
+    setUser(res.data.user);
+    localStorage.setItem("user", JSON.stringify(res.data.user));
+    return res.data;
+  };
+}
