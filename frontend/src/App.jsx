@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import { Toaster } from "react-hot-toast";
+import Register from "./pages/Register";
+import RecruiterRegister from "./pages/RecruiterRegister";
+import RecruiterDashboard from "./pages/RecruiterDashboard";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Jobs from "./pages/Jobs";
+import JobDetails from "./pages/JobDetails";
+import Companies from "./pages/Companies";
+import NotFound from "./pages/NotFound";
+import About from './pages/About'; 
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+       <Toaster position="top-right" />
+      {/* Navbar always visible */}
+      <Navbar />
+
+      {/* Main Content */}
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+           <Route path="/about" element={<About />} />
+
+          {/* Auth */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+
+          {/* Jobs */}
+          <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:id" element={<JobDetails />} />
+
+          {/* Companies */}
+          <Route path="/companies" element={<Companies />} />
+
+          {/* Recruiter */}
+          <Route path="/recruiter-dashboard" element={<RecruiterDashboard />} />
+
+          {/* 404 Page */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
+
+      {/* Footer always visible */}
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
