@@ -11,11 +11,14 @@ import Jobs from "./pages/Jobs";
 import JobDetails from "./pages/JobDetails";
 import Companies from "./pages/Companies";
 import NotFound from "./pages/NotFound";
+import About from './pages/About'; 
+
 
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+       <Toaster position="top-right" />
       {/* Navbar always visible */}
       <Navbar />
 
@@ -23,6 +26,7 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+           <Route path="/about" element={<About />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />

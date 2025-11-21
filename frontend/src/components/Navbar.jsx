@@ -21,16 +21,18 @@ const Navbar = () => {
     setIsOpen(false);
   };
 
-  // Define the menu items dynamically
+
   const mobileNavItems = [
     {
       label: "Navigation",
-      bgColor: "#f3e8ff", // Light purple
-      textColor: "#4c1d95", // Dark purple text
+      bgColor: "#f3e8ff", 
+      textColor: "#4c1d95", 
       links: [
         { label: "Home", href: "/" },
         { label: "Find Jobs", href: "/jobs" },
         { label: "Companies", href: "/companies" },
+        { label: "About Us", href: "/about" },
+
       ]
     }
   ];
@@ -38,14 +40,14 @@ const Navbar = () => {
   if (user) {
     mobileNavItems.push({
       label: `Profile (${user.name})`,
-      bgColor: "#7315c7", // Brand purple
+      bgColor: "#7315c7", 
       textColor: "#fff",
       links: [
         ...(user.role === "recruiter" 
           ? [{ label: "Recruiter Dashboard", href: "/recruiter-dashboard" }] 
           : [{ label: "My Applications", href: "/applications" }]
         ),
-        // We'll add a special Logout link handling in the render loop
+        
       ]
     });
   } else {
@@ -95,7 +97,7 @@ const Navbar = () => {
     };
   }, []);
 
-  // Trigger Animation when 'isOpen' changes
+  
   useEffect(() => {
     if (tlRef.current) {
       if (isOpen) {
@@ -134,6 +136,7 @@ const Navbar = () => {
               <Link to="/" className="text-gray-600 hover:text-[#7315c7] font-medium transition-colors">Home</Link>
               <Link to="/jobs" className="text-gray-600 hover:text-[#7315c7] font-medium transition-colors">Find Jobs</Link>
               <Link to="/companies" className="text-gray-600 hover:text-[#7315c7] font-medium transition-colors">Companies</Link>
+              <Link to="/about" className="text-gray-600 hover:text-[#7315c7] font-medium transition-colors">About us</Link>
 
               {user ? (
                 <div className="flex items-center gap-4 pl-4 border-l border-gray-200">
